@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!-- This file is part of account_invoice_purchase_relation module for Tryton.
+The COPYRIGHT file at the top level of this repository contains the full
+copyright notices and license terms. -->
+<data>
+    <xpath
+        expr="/form/notebook/page[@id=&quot;stock&quot;]/field[@name=&quot;stock_moves&quot;]"
+        position="after">
+            <label name="in_shipment_info"/>
+            <field name="in_shipment_info"/>
+            <label name="purchase"/>
+            <field name="purchase"/>
+            <field name="in_shipments" colspan="4"/>
+            <field name="in_shipment_returns" colspan="4"/>
+    </xpath>
+</data>

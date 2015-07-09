@@ -1,0 +1,31 @@
+# 
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "field:account.invoice,in_shipment_returns:"
+msgid "Supplier Return Shipments"
+msgstr "Albarans devolució de proveïdor"
+
+msgctxt "field:account.invoice,in_shipments:"
+msgid "Supplier Shipments"
+msgstr "Albarans de proveïdor"
+
+msgctxt "field:account.invoice.line,in_shipment_info:"
+msgid "Supplier Shipment Info"
+msgstr "Info albarans de proveïdor"
+
+msgctxt "field:account.invoice.line,in_shipment_returns:"
+msgid "Supplier Return Shipments"
+msgstr "Albarans devolució de proveïdor"
+
+msgctxt "field:account.invoice.line,in_shipments:"
+msgid "Supplier Shipments"
+msgstr "Albarans de proveïdor"
+
+msgctxt "field:account.invoice.line,purchase:"
+msgid "Purchase"
+msgstr "Compra"
+
+msgctxt "view:account.invoice:"
+msgid "Purchases"
+msgstr "Compres"
