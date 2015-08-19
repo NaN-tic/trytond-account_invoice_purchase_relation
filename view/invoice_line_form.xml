@@ -4,7 +4,7 @@ The COPYRIGHT file at the top level of this repository contains the full
 copyright notices and license terms. -->
 <data>
     <xpath
-        expr="/form/notebook/page[@id=&quot;stock&quot;]/field[@name=&quot;stock_moves&quot;]"
+        expr="/form/notebook/page[@name=&quot;stock_moves&quot;]/field[@name=&quot;stock_moves&quot;]"
         position="after">
             <label name="in_shipment_info"/>
             <field name="in_shipment_info"/>
