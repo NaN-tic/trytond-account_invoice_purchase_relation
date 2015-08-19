@@ -105,7 +105,7 @@ class Invoice():
     @classmethod
     def view_attributes(cls):
         return super(Invoice, cls).view_attributes() + [
-            ('/form/notebook/page[@id="purchases"]', 'state', {
+            ('/form/notebook/page[@id="purchases"]', 'states', {
                     'invisible': ~Eval('type').in_(['in_invoice', 'in_credit_note']),
                     })]
 
