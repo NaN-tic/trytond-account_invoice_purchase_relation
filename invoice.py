@@ -9,7 +9,6 @@ from sql.operators import Concat
 
 __all__ = ['Invoice', 'InvoiceLine']
 
-__metaclass__ = PoolMeta
 
 _STATES = {
     'invisible': If(Bool(Eval('_parent_invoice')),
@@ -20,7 +19,8 @@ _STATES = {
 }
 
 
-class Invoice():
+class Invoice:
+    __metaclass__ = PoolMeta
     __name__ = 'account.invoice'
     in_shipments = fields.Function(
         fields.Many2Many('stock.shipment.in', None, None, 'Supplier Shipments',
@@ -110,7 +110,8 @@ class Invoice():
                     })]
 
 
-class InvoiceLine():
+class InvoiceLine:
+    __metaclass__ = PoolMeta
     __name__ = 'account.invoice.line'
     purchase = fields.Function(fields.Many2One('purchase.purchase', 'Purchase',
             states=_STATES), 'get_purchase')
