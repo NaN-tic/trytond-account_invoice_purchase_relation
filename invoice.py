@@ -12,10 +12,8 @@ __all__ = ['Invoice', 'InvoiceLine']
 
 _STATES = {
     'invisible': If(Bool(Eval('_parent_invoice')),
-        ~Eval('_parent_invoice', {}).get('type')
-            .in_(['in_invoice', 'in_credit_note']),
-        ~Eval('invoice_type')
-            .in_(['in_invoice', 'in_credit_note'])),
+        Eval('_parent_invoice', {}).get('type') != 'in',
+        Eval('invoice_type') != 'in'),
 }
 
 
@@ -25,15 +23,13 @@ class Invoice:
     in_shipments = fields.Function(
         fields.Many2Many('stock.shipment.in', None, None, 'Supplier Shipments',
             states={
-                'invisible': Eval('type').in_(['out_invoice',
-                    'out_credit_note', 'in_credit_note']),
+                'invisible': Eval('type') != 'in',
                 }), 'get_in_shipments', searcher='search_in_shipments')
     in_shipment_returns = fields.Function(
         fields.Many2Many('stock.shipment.in.return', None, None,
             'Supplier Return Shipments',
             states={
-                'invisible': Eval('type').in_(['out_invoice',
-                    'out_credit_note', 'in_invoice']),
+                'invisible': Eval('type') != 'in',
                 }),
         'get_in_shipment_returns', searcher='search_in_shipment_returns')
 
@@ -106,7 +102,7 @@ class Invoice:
     def view_attributes(cls):
         return super(Invoice, cls).view_attributes() + [
             ('/form/notebook/page[@id="purchases"]', 'states', {
-                    'invisible': ~Eval('type').in_(['in_invoice', 'in_credit_note']),
+                    'invisible': Eval('type') != 'in',
                     })]
 
 
