@@ -110,7 +110,7 @@ class InvoiceLine:
     __metaclass__ = PoolMeta
     __name__ = 'account.invoice.line'
     purchase = fields.Function(fields.Many2One('purchase.purchase', 'Purchase',
-            states=_STATES), 'get_purchase')
+            states=_STATES), 'get_purchase', searcher='search_purchase')
     in_shipments = fields.Function(fields.One2Many('stock.shipment.in', None,
             'Supplier Shipments', states=_STATES),
         'get_in_shipments', searcher='search_in_shipments')
@@ -125,6 +125,28 @@ class InvoiceLine:
         PurchaseLine = Pool().get('purchase.line')
         if isinstance(self.origin, PurchaseLine):
             return self.origin.purchase.id
+
+    @classmethod
+    def search_purchase(cls, name, clause):
+        pool = Pool()
+        PurchaseLine = pool.get('purchase.line')
+
+        invoice_line = cls.__table__()
+        purchase_line = PurchaseLine.__table__()
+        _, origin_type = cls.origin.sql_type()
+        _, operator, value = clause
+        Operator = fields.SQL_OPERATORS[operator]
+
+        query = (invoice_line
+            .join(purchase_line, 'LEFT',
+                condition=(invoice_line.origin == Concat('purchase.line,',
+                        Cast(purchase_line.id, origin_type)))
+                )
+            .select(invoice_line.id,
+                where=Operator(purchase_line.purchase, value)
+                )
+            )
+        return [('id', 'in', query)]
 
     def get_in_shipments_returns(model_name):
         "Computes the returns or shipments"
