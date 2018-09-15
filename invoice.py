@@ -17,8 +17,7 @@ _STATES = {
 }
 
 
-class Invoice:
-    __metaclass__ = PoolMeta
+class Invoice(metaclass=PoolMeta):
     __name__ = 'account.invoice'
     in_shipments = fields.Function(
         fields.Many2Many('stock.shipment.in', None, None, 'Supplier Shipments',
@@ -106,8 +105,7 @@ class Invoice:
                     })]
 
 
-class InvoiceLine:
-    __metaclass__ = PoolMeta
+class InvoiceLine(metaclass=PoolMeta):
     __name__ = 'account.invoice.line'
     purchase = fields.Function(fields.Many2One('purchase.purchase', 'Purchase',
             states=_STATES), 'get_purchase', searcher='search_purchase')
